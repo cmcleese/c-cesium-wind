@@ -19,6 +19,7 @@ const banner = `/*!
 
 export default {
   input: 'src/main.js',
+  external: Object.keys(globals),
   output: [
     {
       file: "dist/cesium-wind.esm.js",
