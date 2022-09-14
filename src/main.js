@@ -1,4 +1,4 @@
-import * as Cesium from 'cesium/Cesium';
+import * as Cesium from 'cesium';
 import WindCore, {assign, defaultOptions, Field, formatData, isArray, removeDomNode,} from 'wind-core';
 
 class CesiumWind {

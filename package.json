@@ -1,5 +1,5 @@
 {
-  "name": "cesium-wind",
+  "name": "@cmcleese/cesium-wind",
   "version": "1.0.3",
   "description": "wind layer of cesium",
   "main": "dist/cesium-wind.js",
@@ -16,6 +16,10 @@
     "README.md",
     "rollup.config.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmcleese/c-cesium-wind.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rollup -c -w",
@@ -26,9 +30,9 @@
     "wind",
     "gis"
   ],
-  "author": "joe <qj5657@gmail.com>",
+  "author": "cmcleese",
   "license": "MIT",
-  "homepage": "https://github.com/QJvic/cesium-wind",
+  "homepage": "https://github.com/cmcleese/c-cesium-wind",
   "dependencies": {
     "wind-core": "^1.0.0-alpha.10"
   },
