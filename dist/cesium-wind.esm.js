@@ -1,12 +1,12 @@
 /*!
- * author: joe <qj5657@gmail.com>
+ * author: cmcleese
  * cesium-wind 1.0.3
- * build-time: 2020-9-23 11:17
+ * build-time: 2022-9-14 11:26
  * LICENSE: MIT
- * (c) 2020-2020 https://github.com/QJvic/cesium-wind
+ * (c) 2020-2022 https://github.com/cmcleese/c-cesium-wind
  */
 
-import { Cartesian3, SceneTransforms, Cartesian2, Math as Math$1, Ellipsoid, EllipsoidalOccluder } from 'cesium/Cesium';
+import * as Cesium from 'cesium';
 
 /*!
  * author: sakitam-fdd <smilefdd@gmail.com> 
@@ -905,22 +905,10 @@ var BaseLayer = /** @class */ (function () {
     };
     // @ts-ignore
     BaseLayer.prototype.project = function () {
-        var arguments$1 = arguments;
-
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments$1[_i];
-        }
         throw new Error('project must be overriden');
     };
     // @ts-ignore
     BaseLayer.prototype.unproject = function () {
-        var arguments$1 = arguments;
-
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments$1[_i];
-        }
         throw new Error('unproject must be overriden');
     };
     BaseLayer.prototype.intersectsCoordinate = function (coordinates) {
@@ -1124,12 +1112,12 @@ class CesiumWind {
   }
 
   project(coordinate) {
-    const position = Cartesian3.fromDegrees(
+    const position = Cesium.Cartesian3.fromDegrees(
       coordinate[0],
       coordinate[1],
     );
     const scene = this.viewer.scene;
-    const sceneCoor = SceneTransforms.wgs84ToWindowCoordinates(
+    const sceneCoor = Cesium.SceneTransforms.wgs84ToWindowCoordinates(
       scene,
       position,
     );
@@ -1138,7 +1126,7 @@ class CesiumWind {
 
   unproject(pixel) {
     const viewer = this.viewer;
-    const pick = new Cartesian2(pixel[0], pixel[1]);
+    const pick = new Cesium.Cartesian2(pixel[0], pixel[1]);
     const cartesian = viewer.scene.globe.pick(
       viewer.camera.getPickRay(pick),
       viewer.scene,
@@ -1150,22 +1138,21 @@ class CesiumWind {
 
     const ellipsoid = viewer.scene.globe.ellipsoid;
     const cartographic = ellipsoid.cartesianToCartographic(cartesian);
-    const lat = Math$1.toDegrees(cartographic.latitude);
-    const lng = Math$1.toDegrees(cartographic.longitude);
+    const lat = Cesium.Math.toDegrees(cartographic.latitude);
+    const lng = Cesium.Math.toDegrees(cartographic.longitude);
     return [lng, lat];
   }
 
   intersectsCoordinate(coordinate) {
-    const ellipsoid = Ellipsoid.WGS84;
+    const ellipsoid = Cesium.Ellipsoid.WGS84;
     const camera = this.viewer.camera;
-    const occluder = new EllipsoidalOccluder(ellipsoid, camera.position);
-    const point = Cartesian3.fromDegrees(coordinate[0], coordinate[1]);
+    const occluder = new Cesium.EllipsoidalOccluder(ellipsoid, camera.position);
+    const point = Cesium.Cartesian3.fromDegrees(coordinate[0], coordinate[1]);
     return occluder.isPointVisible(point);
   }
 }
 
 const WindLayer = CesiumWind;
 
-export default CesiumWind;
-export { Field, WindLayer };
+export { Field, WindLayer, CesiumWind as default };
 //# sourceMappingURL=cesium-wind.esm.js.map

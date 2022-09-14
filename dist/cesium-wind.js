@@ -1,16 +1,36 @@
 /*!
- * author: joe <qj5657@gmail.com>
+ * author: cmcleese
  * cesium-wind 1.0.3
- * build-time: 2020-9-23 11:17
+ * build-time: 2022-9-14 11:26
  * LICENSE: MIT
- * (c) 2020-2020 https://github.com/QJvic/cesium-wind
+ * (c) 2020-2022 https://github.com/cmcleese/c-cesium-wind
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('cesium/Cesium')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'cesium/Cesium'], factory) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('cesium')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'cesium'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.CesiumWind = {}, global.Cesium));
-}(this, (function (exports, Cesium) { 'use strict';
+})(this, (function (exports, Cesium) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () { return e[k]; }
+                    });
+                }
+            });
+        }
+        n["default"] = e;
+        return Object.freeze(n);
+    }
+
+    var Cesium__namespace = /*#__PURE__*/_interopNamespace(Cesium);
 
     /*!
      * author: sakitam-fdd <smilefdd@gmail.com> 
@@ -909,22 +929,10 @@
         };
         // @ts-ignore
         BaseLayer.prototype.project = function () {
-            var arguments$1 = arguments;
-
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments$1[_i];
-            }
             throw new Error('project must be overriden');
         };
         // @ts-ignore
         BaseLayer.prototype.unproject = function () {
-            var arguments$1 = arguments;
-
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments$1[_i];
-            }
             throw new Error('unproject must be overriden');
         };
         BaseLayer.prototype.intersectsCoordinate = function (coordinates) {
@@ -1128,12 +1136,12 @@
       }
 
       project(coordinate) {
-        const position = Cesium.Cartesian3.fromDegrees(
+        const position = Cesium__namespace.Cartesian3.fromDegrees(
           coordinate[0],
           coordinate[1],
         );
         const scene = this.viewer.scene;
-        const sceneCoor = Cesium.SceneTransforms.wgs84ToWindowCoordinates(
+        const sceneCoor = Cesium__namespace.SceneTransforms.wgs84ToWindowCoordinates(
           scene,
           position,
         );
@@ -1142,7 +1150,7 @@
 
       unproject(pixel) {
         const viewer = this.viewer;
-        const pick = new Cesium.Cartesian2(pixel[0], pixel[1]);
+        const pick = new Cesium__namespace.Cartesian2(pixel[0], pixel[1]);
         const cartesian = viewer.scene.globe.pick(
           viewer.camera.getPickRay(pick),
           viewer.scene,
@@ -1154,16 +1162,16 @@
 
         const ellipsoid = viewer.scene.globe.ellipsoid;
         const cartographic = ellipsoid.cartesianToCartographic(cartesian);
-        const lat = Cesium.Math.toDegrees(cartographic.latitude);
-        const lng = Cesium.Math.toDegrees(cartographic.longitude);
+        const lat = Cesium__namespace.Math.toDegrees(cartographic.latitude);
+        const lng = Cesium__namespace.Math.toDegrees(cartographic.longitude);
         return [lng, lat];
       }
 
       intersectsCoordinate(coordinate) {
-        const ellipsoid = Cesium.Ellipsoid.WGS84;
+        const ellipsoid = Cesium__namespace.Ellipsoid.WGS84;
         const camera = this.viewer.camera;
-        const occluder = new Cesium.EllipsoidalOccluder(ellipsoid, camera.position);
-        const point = Cesium.Cartesian3.fromDegrees(coordinate[0], coordinate[1]);
+        const occluder = new Cesium__namespace.EllipsoidalOccluder(ellipsoid, camera.position);
+        const point = Cesium__namespace.Cartesian3.fromDegrees(coordinate[0], coordinate[1]);
         return occluder.isPointVisible(point);
       }
     }
@@ -1172,8 +1180,8 @@
 
     exports.Field = Field;
     exports.WindLayer = WindLayer;
-    exports.default = CesiumWind;
+    exports["default"] = CesiumWind;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
